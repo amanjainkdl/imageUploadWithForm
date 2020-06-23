@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <% if(success != ''){ %>
+      <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       <strong>Success! </strong><%= success %>
+      </div>    
+    <% } %>  
+    <div class="container">           
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>            
+            <th>Email</th>
+            <th>Emp Type</th>
+            <th>Rate/hr</th>
+            <th>Total hour Worked</th>
+            <th>Salary</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(records.length > 0) { %>
+          <% records.forEach(function(row){%>            
+            <tr>
+              <td><%= row.name %></td>
+              <td><%= row.email %></td>
+              <td><%= row.etype %></td>
+              <td><%= row.ratePerHour %></td>
+              <td><%= row.totalHourWorked %></td>
+              <td><%= row.totalSal %></td>
+              <td><a href="/edit/<%= row._id %>"><i class="fa fa-pencil" style="font-size:15px;"></i></a>
+                <a href="/delete/<%= row._id %>"><i class="fa fa-trash" data-toggle="modal" data-target="#myModal" style="font-size:15px; color:red">
+                </i></a></td>
+            </tr> 
+          <% }) }else{  %>  
+            <tr>
+              <td class="font-weight-normal">No records found</td>
+            </tr> 
+            <% } %>             
+        </tbody>
+      </table>
+    </div>    
+    <div class="container col-md-3 jumbotron text-center">
+      <form action="/" class="form-signin" method="POST" enctype="multipart/form-data">
+          <input type="text" class="form-control" name="name" placeholder="Name" required>
+          <input type="email" class="form-control" name="email"  placeholder="Email address" required autofocus>                 
+          <input type="text" class="form-control" name="etype" placeholder="Employee type" required>
+          <input type="text" class="form-control" name="rateHour" placeholder="Rate per hour" required>
+          <input type="text" class="form-control" name="totalhourworked" placeholder="Total hour worked" required>
+          <label class="btn btn-primary" for="my-file-selector">
+            <input id="my-file-selector" type="file" name="profilePic" class="d-none form-control">
+          </label>
+          <button type="submit" class="btn btn-lg btn-primary btn-block">Insert</button>
+      </form>
+      </div>
+  </body>
+</html>
